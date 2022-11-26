@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class BreakObjectScript : MonoBehaviour
 {
-	[SerializeField]
-	private bool solid;
 	[SerializeField]
 	private GameObject brokenObject;
 	[SerializeField]
@@ -13,8 +10,6 @@ public class BreakObjectScript : MonoBehaviour
 	private float radius;
 	[SerializeField]
 	private float power;
-	[SerializeField]
-	private float upwards;
 
 	void OnCollisionEnter(Collision collision)
 	{
@@ -27,16 +22,14 @@ public class BreakObjectScript : MonoBehaviour
 
 			Collider[] colliders = Physics.OverlapSphere(collision_position, radius);
 
-
 			foreach (var piece in colliders) {
 				var rigibody = piece.GetComponent<Rigidbody>();
-				if (rigibody != null && solid)
+				if (rigibody != null)
 				{
 					rigibody.AddExplosionForce(power * collision.relativeVelocity.magnitude, collision_position, radius);
 				}
 
 			}
-
 			Destroy(gameObject);
 		}
 	}
